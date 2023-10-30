@@ -1,7 +1,8 @@
 export interface Funcionarios {
-id:string,
-  Nome:string;
-  Cidade:string;
-  Estado:string
+  id: string,
+  nome: string;
+  departamento:string;
+  cidade: string;
+  estado: string
 
 }

@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { Funcionarios } from './models/funcionarios';
 
 @Component({
@@ -6,13 +6,12 @@ import { Funcionarios } from './models/funcionarios';
   templateUrl: './people.component.html',
   styleUrls: ['./people.component.scss']
 })
-export class PeopleComponent  {
-people:Funcionarios[] = [{id:"5",Nome:'joão',Cidade:'Blumenau',Estado:'SC'}]
+export class PeopleComponent {
+  people: Funcionarios[] = [{ id: "5", nome: 'joão',departamento:'rh', cidade: 'Blumenau', estado: 'SC' }]
 
-displayedColumns =['Nome','Cidade','Estado'
-]
-constructor( ){
-  // this.people = []
-}
+  displayedColumns = ['nome','departamento', 'cidade', 'estado']
+  constructor() {
+    // this.people = []
+  }
 
 }

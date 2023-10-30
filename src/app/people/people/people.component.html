@@ -4,6 +4,10 @@
     <th mat-header-cell *matHeaderCellDef> Nome </th>
     <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
   </ng-container>
+  <ng-container matColumnDef="departamento">
+    <th mat-header-cell *matHeaderCellDef> Departamento </th>
+    <td mat-cell *matCellDef="let element"> {{element.departamento}} </td>
+  </ng-container>
   <ng-container matColumnDef="cidade">
     <th mat-header-cell *matHeaderCellDef> Cidade </th>
     <td mat-cell *matCellDef="let element"> {{element.cidade}} </td>
@@ -20,3 +24,4 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
