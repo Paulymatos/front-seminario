@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Funcionarios } from '../people/models/funcionarios';
-import {tap} from 'rxjs/operators'
+import {delay, tap} from 'rxjs/operators'
 import{first} from 'rxjs/operators'
 
 @Injectable({
@@ -14,6 +14,7 @@ export class PeopleService {
   list() {
     return this.httpClient.get<Funcionarios[]>(this.API).pipe(
       first(),
+      delay(2000),//testar spinner
       tap(listpeople => console.log(listpeople))
     )
   }

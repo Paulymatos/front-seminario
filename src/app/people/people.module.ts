@@ -5,7 +5,6 @@ import { PeopleComponent } from './people/people.component';
 import { AppMaterialModule } from '../shared/app-material/app-material.module';
 
 
-
 @NgModule({
   declarations: [
     PeopleComponent
@@ -13,7 +12,8 @@ import { AppMaterialModule } from '../shared/app-material/app-material.module';
   imports: [
     CommonModule,
     PeopleRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+    
 
 
   ]

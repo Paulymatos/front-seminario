@@ -10,14 +10,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./people.component.scss']
 })
 export class PeopleComponent {
-  people: Observable<Funcionarios[]>
+  people$: Observable<Funcionarios[]>
 
   displayedColumns = ['nome','departamento', 'cidade', 'estado']
 
 
   constructor(private peopleService:PeopleService) {
 
-    this.people = this.peopleService.list()
+    this.people$ = this.peopleService.list()
   }
 
 }
