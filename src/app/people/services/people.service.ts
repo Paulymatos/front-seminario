@@ -14,7 +14,7 @@ export class PeopleService {
   list() {
     return this.httpClient.get<Funcionarios[]>(this.API).pipe(
       first(),
-      delay(2000),//testar spinner
+      // delay(2000),//testar spinner
       tap(listpeople => console.log(listpeople))
     )
   }

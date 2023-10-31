@@ -3,18 +3,23 @@ import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
-
+import {MatDialogModule} from '@angular/material/dialog';
+import{MatButtonModule} from '@angular/material/button'
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
-  exports:[
+  exports: [
     MatCardModule,
     MatTableModule,
     MatToolbarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatButtonModule,
+   MatIconModule,
+   MatInputModule
 
-  ],
-
+  ]
 })
 export class AppMaterialModule { }
