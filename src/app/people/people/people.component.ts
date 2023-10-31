@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Funcionarios } from './models/funcionarios';
 import { PeopleService } from '../services/people.service';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-people',
@@ -9,13 +10,13 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./people.component.scss']
 })
 export class PeopleComponent {
-  people: Funcionarios[] = []
+  people: Observable<Funcionarios[]>
 
   displayedColumns = ['nome','departamento', 'cidade', 'estado']
-  // peopleService:PeopleService;
+
 
   constructor(private peopleService:PeopleService) {
-    // this.peopleService =new PeopleService()
+
     this.people = this.peopleService.list()
   }
 
