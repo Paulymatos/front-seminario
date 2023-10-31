@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Funcionarios } from './models/funcionarios';
+import { PeopleService } from '../services/people.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-people',
@@ -7,11 +9,14 @@ import { Funcionarios } from './models/funcionarios';
   styleUrls: ['./people.component.scss']
 })
 export class PeopleComponent {
-  people: Funcionarios[] = [{ id: "5", nome: 'joão',departamento:'rh', cidade: 'Blumenau', estado: 'SC' }]
+  people: Funcionarios[] = []
 
   displayedColumns = ['nome','departamento', 'cidade', 'estado']
-  constructor() {
-    // this.people = []
+  // peopleService:PeopleService;
+
+  constructor(private peopleService:PeopleService) {
+    // this.peopleService =new PeopleService()
+    this.people = this.peopleService.list()
   }
 
 }
