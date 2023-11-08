@@ -1,0 +1,225 @@
+<div class="container">
+  <form #pessoaForm="ngForm" autocomplete="off" (submit)="salvar(pessoaForm)">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>{{ editando ? "Editando" : "Novo" }} funcionário</h1>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label>Nome</label>
+        <input
+          pInputText
+          type="text"
+          name="nome"
+          [(ngModel)]="pessoa.nome"
+          #nome="ngModel"
+          required
+          minlength="5"
+        />
+      </div>
+
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>CPF</label>
+        <input
+          pInputText
+          type="text"
+          name="cpf"
+          [(ngModel)]="pessoa.cpf"
+          #nome="ngModel"
+          required
+          minlength="5"
+        />
+      </div>
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>E-mail</label>
+        <input
+          pInputText
+          type="text"
+          name="email"
+          [(ngModel)]="pessoa.email"
+          #nome="ngModel"
+          required
+          minlength="5"
+        />
+      </div>
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>Telefone</label>
+        <input
+          pInputText
+          type="text"
+          name="telefone"
+          [(ngModel)]="pessoa.telefone"
+          #nome="ngModel"
+          required
+          minlength="5"
+        />
+      </div>
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>Cargo</label>
+        <input
+          pInputText
+          type="text"
+          name="cargo"
+          [(ngModel)]="pessoa.cargo"
+          #bairro="ngModel"
+          required
+        />
+      </div>
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>Departamento</label>
+        <input
+          pInputText
+          type="text"
+          name="departamento"
+          [(ngModel)]="pessoa.departamento"
+          #bairro="ngModel"
+          required
+        />
+      </div>
+
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>Data de Contratação</label>
+        <input
+          pInputText
+          type="text"
+          name="datacontrato"
+          [(ngModel)]="pessoa.data"
+          #numero="ngModel"
+          required
+        />
+      </div>
+      
+      <div class="ui-g-12 ui-md-9 ui-fluid">
+        <label>Endereço</label>
+        <input
+          pInputText
+          type="text"
+          name="logradouro"
+          [(ngModel)]="pessoa.endereco.logradouro"
+          #logradouro="ngModel"
+          required
+        />
+        <p-message
+          *ngIf="logradouro.hasError('required') && logradouro.dirty"
+          severity="error"
+          text="Inform the address"
+        ></p-message>
+      </div>
+
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label>Numero</label>
+        <input
+          pInputText
+          type="text"
+          name="numero"
+          [(ngModel)]="pessoa.endereco.numero"
+          #numero="ngModel"
+          required
+        />
+        <p-message
+          *ngIf="numero.hasError('required') && numero.dirty"
+          severity="error"
+          text="Inform the number"
+        ></p-message>
+      </div>
+
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>Complemento</label>
+        <input
+          pInputText
+          type="text"
+          name="complemento"
+          [(ngModel)]="pessoa.endereco.complemento"
+          #complemento="ngModel"
+        />
+      </div>
+
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>Bairro</label>
+        <input
+          pInputText
+          type="text"
+          name="bairro"
+          [(ngModel)]="pessoa.endereco.bairro"
+          #bairro="ngModel"
+          required
+        />
+        <p-message
+          *ngIf="bairro.hasError('required') && bairro.dirty"
+          severity="error"
+          text="Inform the neighborhood"
+        ></p-message>
+      </div>
+
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>CEP</label>
+        <p-inputMask
+          mask="99.999-999"
+          name="cep"
+          [(ngModel)]="pessoa.endereco.cep"
+          #cep="ngModel"
+          required
+        ></p-inputMask>
+        <p-message
+          *ngIf="cep.hasError('required') && cep.dirty"
+          severity="error"
+          text="Inform the Zip code"
+        ></p-message>
+      </div>
+
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label>Estado</label>
+        <p-dropdown
+          [options]="estados"
+          placeholder="Selecione"
+          name="estadoSelecionado"
+          filter="true"
+          [(ngModel)]="estadoSelecionado"
+          (onChange)="buscarCidadesDoEstado()"
+          #estado="ngModel"
+          required
+        >
+        </p-dropdown>
+        <p-message
+          *ngIf="estado.hasError('required') && estado.dirty"
+          severity="error"
+          text="Inform the state"
+        ></p-message>
+      </div>
+
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label>Cidade</label>
+        <p-dropdown
+          [options]="cidades"
+          placeholder="Selecione"
+          name="cidade"
+          [(ngModel)]="pessoa.endereco.cidade.codigo"
+          #cidade="ngModel"
+          required
+          filter="true"
+          [disabled]="!estadoSelecionado"
+        >
+        </p-dropdown>
+        <p-message
+          *ngIf="cidade.hasError('required') && cidade.dirty"
+          severity="error"
+          text="Inform the city"
+        ></p-message>
+      </div>
+
+      <div class="ui-g-12">
+        <p-button
+          type="submit"
+          label="Salvar"
+          [disabled]="pessoaForm.invalid"
+        ></p-button>
+        <p-button
+          type="button"
+          label="Novo"
+          (click)="nova(pessoaForm)"
+        ></p-button>
+        <a routerLink="/pessoas">Voltar para pesquisa</a>
+      </div>
+    </div>
+  </form>
+</div>
