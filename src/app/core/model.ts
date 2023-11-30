@@ -4,21 +4,16 @@ export class Categoria {
 }
 
 export class Pessoa {
-  codigo: number;
+  id: number;
   nome: string;
   cpf:number;
   email:string;
   telefone: string;
   cargo:string;
   departamento:string;
-  data:Date;
-  ativo = true;
+  dataContratacao:Date;
   endereco = new Endereco();
- 
 }
-
-
-
 export class Endereco {
   logradouro: string;
   numero: number;
@@ -29,13 +24,13 @@ export class Endereco {
 }
 
 export class Cidade {
-  codigo: number;
+  id: number;
   nome: string;
   estado = new Estado();
 }
 
 export class Estado {
-  codigo: number;
+  id: number;
   nome: string;
 }
 

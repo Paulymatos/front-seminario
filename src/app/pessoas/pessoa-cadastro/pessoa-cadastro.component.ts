@@ -7,6 +7,7 @@ import { MessageService } from "primeng/api";
 import { PessoaService } from "../pessoa.service";
 import { Pessoa } from "../../core/model";
 import { ErrorHandlerService } from "../../core/error-handler.service";
+import { CalendarioPtBr } from './../../shared/Calendario-ptBr';
 
 @Component({
   selector: "app-pessoa-cadastro",
@@ -20,6 +21,7 @@ export class PessoaCadastroComponent implements OnInit {
   estadoSelecionado: number;
 
   pessoa = new Pessoa();
+  br = CalendarioPtBr.pt_BR;
 
   constructor(
     private pessoaService: PessoaService,
@@ -38,7 +40,7 @@ export class PessoaCadastroComponent implements OnInit {
   }
 
   get editando() {
-    return Boolean(this.pessoa.codigo);
+    return Boolean(this.pessoa.id);
   }
 
   carregarPessoa(codigo: number) {
@@ -47,10 +49,8 @@ export class PessoaCadastroComponent implements OnInit {
       .then((pessoa) => {
         this.pessoa = pessoa;
 
-        this.estadoSelecionado = this.pessoa.endereco.cidade
-          ? this.pessoa.endereco.cidade.estado.codigo
-          : null;
-
+        this.estadoSelecionado =  this.pessoa.endereco.cidade.estado.id;
+      
         if (this.estadoSelecionado) {
           this.buscarCidadesDoEstado();
         }
@@ -67,15 +67,19 @@ export class PessoaCadastroComponent implements OnInit {
   }
 
   adicionarPessoa(form: FormControl) {
+    this.pessoa.endereco.cidade.estado.id = this.estadoSelecionado;   
+    this.pessoa.endereco.cidade.estado.nome = this.estados.find( e => e.id= this.estadoSelecionado).label
+    this.pessoa.endereco.cidade.nome = this.cidades.find( c => c.id = this.pessoa.endereco.cidade.id).label
+
     this.pessoaService
       .adicionar(this.pessoa)
       .then((pessoaAdicionado) => {
         this.messageService.add({
           severity: "success",
-          summary: "Pessoa adicionada com sucesso!",
+          summary: "Funcionario adicionado com sucesso!",
         });
 
-        this.router.navigate(["/pessoas", pessoaAdicionado.codigo]);
+        this.router.navigate(["/funcionarios", pessoaAdicionado.id]);
       })
       .catch((erro) => this.errorHandler.handler(erro));
   }
@@ -87,7 +91,7 @@ export class PessoaCadastroComponent implements OnInit {
         this.pessoa = pessoa;
         this.messageService.add({
           severity: "success",
-          summary: "Pessoa atualizada com sucesso!",
+          summary: "Funcionario atualizado com sucesso!",
         });
       })
       .catch((erro) => this.errorHandler.handler(erro));
@@ -103,7 +107,7 @@ export class PessoaCadastroComponent implements OnInit {
       1
     );
 
-    this.router.navigate(["/pessoas/nova"]);
+    this.router.navigate(["/funcionarios/novo"]);
   }
 
   carregarEstados() {
@@ -111,7 +115,7 @@ export class PessoaCadastroComponent implements OnInit {
       .obterEstados()
       .then((response) => {
         this.estados = response.map((e) => {
-          return { label: e.nome, value: e.codigo };
+          return { label: e.nome, value: e.id };
         });
       })
       .catch((erro) => this.errorHandler.handler(erro));
@@ -122,7 +126,7 @@ export class PessoaCadastroComponent implements OnInit {
       .obterCidadesDoEstado(this.estadoSelecionado)
       .then((response) => {
         this.cidades = response.map((c) => {
-          return { label: c.nome, value: c.codigo };
+          return { label: c.nome, value: c.id };
         });
       })
       .catch((erro) => this.errorHandler.handler(erro));

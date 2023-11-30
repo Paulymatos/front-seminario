@@ -10,7 +10,7 @@ const router: Routes = [
     component: PessoasPesquisaComponent,
   },
   {
-    path: "nova",
+    path: "novo",
     component: PessoaCadastroComponent,
   },
   {

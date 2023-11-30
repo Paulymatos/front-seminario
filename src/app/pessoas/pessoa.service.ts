@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpParams, HttpHeaders, HttpClient } from "@angular/common/http";
-
 import { Pessoa, Estado, Cidade } from "./../core/model";
 import { environment } from "./../../environments/environment";
 
@@ -12,14 +11,12 @@ export class PessoaFiltro {
 
 @Injectable()
 export class PessoaService {
-  pessoaUrl: string;
+  funcionariosUrl: string;
   estadosUrl: string;
-  cidadesUrl: string;
 
   constructor(private http: HttpClient) {
-    this.pessoaUrl = `${environment.apiUrl}/pessoas`;
-    this.estadosUrl = `${environment.apiUrl}/estados`;
-    this.cidadesUrl = `${environment.apiUrl}/cidades`;
+    this.funcionariosUrl = `${environment.apiUrl}/funcionarios`;
+    this.estadosUrl = `https://servicodados.ibge.gov.br/api/v1/localidades/estados`;
   }
 
   pesquisar(filtro: PessoaFiltro): Promise<any> {
@@ -35,7 +32,7 @@ export class PessoaService {
     }
 
     return this.http
-      .get<any>(`${this.pessoaUrl}`, { params })
+      .get<any>(`${this.funcionariosUrl}`, { params })
       .toPromise()
       .then((response) => {
         const pessoas = response.content;
@@ -50,14 +47,14 @@ export class PessoaService {
 
   listarTodas(): Promise<any> {
     return this.http
-      .get<any>(`${this.pessoaUrl}`)
+      .get<any>(`${this.funcionariosUrl}`)
       .toPromise()
       .then((response) => response.content);
   }
 
   excluir(codigo: number): Promise<void> {
     return this.http
-      .delete(`${this.pessoaUrl}/${codigo}`)
+      .delete(`${this.funcionariosUrl}/${codigo}`)
       .toPromise()
       .then(() => null);
   }
@@ -69,22 +66,22 @@ export class PessoaService {
     );
 
     return this.http
-      .put(`${this.pessoaUrl}/${codigo}/ativo`, !status, { headers })
+      .put(`${this.funcionariosUrl}/${codigo}/ativo`, !status, { headers })
       .toPromise()
       .then(() => null);
   }
 
   adicionar(pessoa: Pessoa): Promise<Pessoa> {
-    return this.http.post<Pessoa>(this.pessoaUrl, pessoa).toPromise();
+    return this.http.post<Pessoa>(this.funcionariosUrl, pessoa).toPromise();
   }
 
   buscarPorCodigo(codigo: number): Promise<Pessoa> {
-    return this.http.get<Pessoa>(`${this.pessoaUrl}/${codigo}`).toPromise();
+    return this.http.get<Pessoa>(`${this.funcionariosUrl}/${codigo}`).toPromise();
   }
 
   atualizar(pessoa: Pessoa): Promise<Pessoa> {
     return this.http
-      .put<Pessoa>(`${this.pessoaUrl}/${pessoa.codigo}`, pessoa)
+      .put<Pessoa>(`${this.funcionariosUrl}/${pessoa.id}`, pessoa)
       .toPromise();
   }
 
@@ -94,7 +91,7 @@ export class PessoaService {
 
   obterCidadesDoEstado(codigoEstado: number): Promise<Cidade[]> {
     return this.http
-      .get<Cidade[]>(`${this.cidadesUrl}/${codigoEstado}`)
+      .get<Cidade[]>(`${this.estadosUrl}/${codigoEstado}/municipios`)
       .toPromise();
   }
 }

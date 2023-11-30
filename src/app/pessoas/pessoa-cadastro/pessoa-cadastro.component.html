@@ -20,15 +20,15 @@
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label>CPF</label>
-        <input
-          pInputText
+        <p-inputMask
+          mask="999.999.999-99"         
           type="text"
           name="cpf"
           [(ngModel)]="pessoa.cpf"
           #nome="ngModel"
           required
           minlength="5"
-        />
+        ></p-inputMask>
       </div>
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label>E-mail</label>
@@ -40,19 +40,12 @@
           #nome="ngModel"
           required
           minlength="5"
+          email
         />
       </div>
       <div class="ui-g-12 ui-md-4 ui-fluid">
-        <label>Telefone</label>
-        <input
-          pInputText
-          type="text"
-          name="telefone"
-          [(ngModel)]="pessoa.telefone"
-          #nome="ngModel"
-          required
-          minlength="5"
-        />
+        <label>Telefone</label>        
+        <p-inputMask mask="(99) 99999-999?9" type="text" name="telefone" [(ngModel)]="pessoa.telefone"></p-inputMask>
       </div>
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label>Cargo</label>
@@ -79,14 +72,8 @@
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label>Data de Contratação</label>
-        <input
-          pInputText
-          type="text"
-          name="datacontrato"
-          [(ngModel)]="pessoa.data"
-          #numero="ngModel"
-          required
-        />
+      
+        <p-calendar dateFormat="dd/mm/yy" name="dataContratacao" [(ngModel)]="pessoa.dataContratacao" [locale]="br"></p-calendar>
       </div>
       
       <div class="ui-g-12 ui-md-9 ui-fluid">
@@ -119,7 +106,7 @@
         <p-message
           *ngIf="numero.hasError('required') && numero.dirty"
           severity="error"
-          text="Inform the number"
+          text="Informe o número"
         ></p-message>
       </div>
 
@@ -147,7 +134,7 @@
         <p-message
           *ngIf="bairro.hasError('required') && bairro.dirty"
           severity="error"
-          text="Inform the neighborhood"
+          text="Informe o bairro"
         ></p-message>
       </div>
 
@@ -163,7 +150,7 @@
         <p-message
           *ngIf="cep.hasError('required') && cep.dirty"
           severity="error"
-          text="Inform the Zip code"
+          text="Informe o CEP"
         ></p-message>
       </div>
 
@@ -183,7 +170,7 @@
         <p-message
           *ngIf="estado.hasError('required') && estado.dirty"
           severity="error"
-          text="Inform the state"
+          text="Informe o estado"
         ></p-message>
       </div>
 
@@ -193,7 +180,7 @@
           [options]="cidades"
           placeholder="Selecione"
           name="cidade"
-          [(ngModel)]="pessoa.endereco.cidade.codigo"
+          [(ngModel)]="pessoa.endereco.cidade.id"
           #cidade="ngModel"
           required
           filter="true"
@@ -203,7 +190,7 @@
         <p-message
           *ngIf="cidade.hasError('required') && cidade.dirty"
           severity="error"
-          text="Inform the city"
+          text="Informe a cidade"
         ></p-message>
       </div>
 
@@ -218,7 +205,7 @@
           label="Novo"
           (click)="nova(pessoaForm)"
         ></p-button>
-        <a routerLink="/pessoas">Voltar para pesquisa</a>
+        <a routerLink="/funcionarios">Voltar para pesquisa</a>
       </div>
     </div>
   </form>

@@ -5,7 +5,7 @@ import { PaginaNaoEncontradaComponent } from "./core/pagina-nao-encontrada.compo
 
 const router: Routes = [
   {
-    path: "pessoas",
+    path: "funcionarios",
     loadChildren: () =>
       import("app/pessoas/pessoas.module").then((m) => m.PessoasModule),
   },

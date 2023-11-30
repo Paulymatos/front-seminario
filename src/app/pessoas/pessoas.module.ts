@@ -8,6 +8,7 @@ import { DialogModule } from "primeng/dialog";
 import { ButtonModule } from "primeng/button";
 import { TooltipModule } from "primeng/tooltip";
 import { MessageModule } from "primeng/message";
+import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from "primeng/dropdown";
 import { InputTextModule } from "primeng/inputtext";
 import { InputMaskModule } from "primeng/inputmask";
@@ -23,6 +24,7 @@ import { PessoasPesquisaComponent } from "./pessoas-pesquisa/pessoas-pesquisa.co
     InputTextModule,
     ButtonModule,
     TableModule,
+    CalendarModule,
     TooltipModule,
     InputMaskModule,
     MessageModule,
